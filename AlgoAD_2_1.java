@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Algo2_1_서울_6반_박소현 {
+public class Algo2_1 {
 	static int V, P; // 마을개수, 경찰서개수
 	static int total; // 조합 가능한 수
 
