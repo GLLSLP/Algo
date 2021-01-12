@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Algo2_2_서울_6반_박소현 {
+public class Algo2_2 {
 	static int V, P, L; // 마을 개수, 경찰서 개수, 큰 길의 둘레
 	static int[] input; // 마을 V개의 위치를 저장함
 	static int[] choice;// 경찰서 P개의 위치를 저장함
