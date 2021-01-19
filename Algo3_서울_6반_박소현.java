@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Algo3_서울_6반_박소현 {
+public class Algo3{
 	static int N;
 	static int K;
 	static int[] map;
