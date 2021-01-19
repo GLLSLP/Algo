@@ -1,51 +1,47 @@
-package com.jaegui;
+import java.util.Scanner;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+public class 백준_1074_Z {
+	static int N, r, c;
+	static int[][] dir = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
+	static int count = 0;
 
-public class Z {
-	static int N;
-	static int r;
-	static int c;
-	static int count;
-
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String line = br.readLine();
-		StringTokenizer st = new StringTokenizer(line);
-		N = Integer.parseInt(st.nextToken());
-		r = Integer.parseInt(st.nextToken());
-		c = Integer.parseInt(st.nextToken());
-
-		int size = (int) Math.pow(2, N);
-		int[][] square = new int[size][size];
-		search(0, 0, getSize(N));
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		r = sc.nextInt();
+		c = sc.nextInt();
+		Z(0, 0, N);
 	}
 
-	private static void search(int a, int b, int size) {
-		// TODO Auto-generated method stub
-		if (size == 1) { 
-			if (a == r && b == c) {
-				System.out.println(count);
+	private static void Z(int x, int y, int n) {
+		if (n == 1) {// 제일 작은 z까지 줄어들면
+			for (int ri = x; ri <= x + 1; ri++) {
+				for (int rj = y; rj <= y + 1; rj++) {
+					//count++;
+					if (ri == r && rj == c) {
+						System.out.println(count);
+						return;
+					}
+					count++;
+				}
 			}
-			count++;
 			return;
-		}
-		int s = size / 2;
-		search(a, b, s);		//
-		search(a, b + s, s);	//오른쪽
-		search(a + s, b, s);	//아래
-		search(a + s, b + s, s);//오른쪽아래
-	}
+		} 
+		for (int d = 0; d < 4; d++) {
+			int startX = (int) (x + dir[d][0] * Math.pow(2, n - 1));
+			int startY = (int) (y + dir[d][1] * Math.pow(2, n - 1));
+			int endX = (int) (startX + Math.pow(2, n - 1));
+			int endY = (int) (startY + Math.pow(2, n - 1));
+			
+			if (r >= startX && r < endX && c >= startY && c < endY) {
+				Z(startX, startY, n - 1);
+				break;
+			} else {
+				count += Math.pow((startX - endX), 2);
+			}
 
-	static int getSize(int n) {
-		int result = 1;
-		for (int i = 0; i < n; i++)
-			result *= 2;
-		return result;
+		}
 	}
 
 }
