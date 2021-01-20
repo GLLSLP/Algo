@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-public class ¹éÁØ_14891_Åé´Ï¹ÙÄû {
+public class ë°±ì¤€_14891_í†±ë‹ˆë°”í€´ {
 	static int[][] gear;
 	static boolean [] flag;
-	static int K, N, D; //È¸ÀüÈ½¼ö, È¸Àü½ÃÅ² Åé´Ï¹ÙÄû ¹øÈ£, ¹æÇâ
+	static int K, N, D; //íšŒì „íšŸìˆ˜, íšŒì „ì‹œí‚¨ í†±ë‹ˆë°”í€´ ë²ˆí˜¸, ë°©í–¥
 	static int c=0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -22,8 +22,8 @@ public class ¹éÁØ_14891_Åé´Ï¹ÙÄû {
 			c=0;
 			N=sc.nextInt();
 			D=sc.nextInt();
-			System.out.println(k+1+"È¸Â÷");
-			cir(N,D);//¹øÈ£,¹æÇâ
+			System.out.println(k+1+"íšŒì°¨");
+			cir(N,D);//ë²ˆí˜¸,ë°©í–¥
 			print();
 			System.out.println();
 		}
@@ -40,8 +40,8 @@ public class ¹éÁØ_14891_Åé´Ï¹ÙÄû {
 
 	private static void cir(int num, int direction) {
 		// TODO Auto-generated method stub
-		//2¹øÀÎµ¦½º°¡ ¿À¸¥ÂÊ, 6¹ø ÀÎµ¦½º°¡ ¿ŞÂÊÀÌ´Ù.
-		//directionÀÌ 1ÀÌ¸é ½Ã°è¹æÇâ, -1ÀÌ¸é ¹İ½Ã°è¹æÇâ
+		//2ë²ˆì¸ë±ìŠ¤ê°€ ì˜¤ë¥¸ìª½, 6ë²ˆ ì¸ë±ìŠ¤ê°€ ì™¼ìª½ì´ë‹¤.
+		//directionì´ 1ì´ë©´ ì‹œê³„ë°©í–¥, -1ì´ë©´ ë°˜ì‹œê³„ë°©í–¥
 		int left = gear[num][6];
 		int right = gear[num][2];
 		
@@ -51,17 +51,17 @@ public class ¹éÁØ_14891_Åé´Ï¹ÙÄû {
 			flag[num]=true;
 		}
 		c++;
-		System.out.println("ÇöÀçµ¹¸®´Â ±â¾î´Â"+num+"ÀÌ°í "+left+","+right);
-		if(direction==1) {	//½Ã°è¹æÇâ
-			System.out.println("½Ã°è¹æÇâÀ¸·Î È¸ÀüÇÑ´Ù.");
+		System.out.println("í˜„ì¬ëŒë¦¬ëŠ” ê¸°ì–´ëŠ”"+num+"ì´ê³  "+left+","+right);
+		if(direction==1) {	//ì‹œê³„ë°©í–¥
+			System.out.println("ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „í•œë‹¤.");
 			int temp = gear[num][7];
 			for (int n = 7; n > 0; n--) {
 				gear[num][n]=gear[num][n-1];
 			}
 			gear[num][0]=temp;
 			
-		}else {	//¹İ½Ã°è¹æÇâ
-			System.out.println("¹İ½Ã°è¹æÇâÀ¸·Î È¸ÀüÇÑ´Ù.");
+		}else {	//ë°˜ì‹œê³„ë°©í–¥
+			System.out.println("ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „í•œë‹¤.");
 			int temp = gear[num][0];
 			for (int n = 0; n < 7; n++) {
 				gear[num][n]=gear[num][n+1];
@@ -69,18 +69,18 @@ public class ¹éÁØ_14891_Åé´Ï¹ÙÄû {
 			gear[num][7]=temp;
 		}
 		
-		//¿ŞÂÊ ±â¾î·Î Àç±Í 
-		if(num>1) {//¸¸¾à ÇöÀç ±â¾î°¡ Á¦ÀÏ ¿ŞÂÊ°Ô ¾Æ´Ï¸é ¤¡¤¡
+		//ì™¼ìª½ ê¸°ì–´ë¡œ ì¬ê·€ 
+		if(num>1) {//ë§Œì•½ í˜„ì¬ ê¸°ì–´ê°€ ì œì¼ ì™¼ìª½ê²Œ ì•„ë‹ˆë©´ ã„±ã„±
 			if(left!=gear[num-1][2]) {
-				//¸Â´êÀº°÷ÀÌ °°À¸¸é °°Àº¹æÇâ È¸ÀüÀÌ¹Ç·Î directionÀº ¹İ´ë°¡ µÈ´Ù.
-				cir(num-1,direction);
+				//ë§ë‹¿ì€ê³³ì´ ê°™ìœ¼ë©´ ê°™ì€ë°©í–¥ íšŒì „ì´ë¯€ë¡œ directionì€ ë°˜ëŒ€ê°€ ëœë‹¤.
+				cir(num-1,direction*-1);
 			}
 		}
-		//¿À¸¥ÂÊ ±â¾î Àç±Í
-		if(num<4) {//¸¸¾à ÇöÀç ±â¾î°¡ Á¦ÀÏ ¿ŞÂÊ°Ô ¾Æ´Ï¸é ¤¡¤¡
+		//ì˜¤ë¥¸ìª½ ê¸°ì–´ ì¬ê·€
+		if(num<4) {//ë§Œì•½ í˜„ì¬ ê¸°ì–´ê°€ ì œì¼ ì™¼ìª½ê²Œ ì•„ë‹ˆë©´ ã„±ã„±
 			if(right!=gear[num+1][6]) {
-				//¸Â´êÀº°÷ÀÌ °°À¸¸é °°Àº¹æÇâ È¸ÀüÀÌ¹Ç·Î directionÀº ¹İ´ë°¡ µÈ´Ù.
-				cir(num+1,direction);
+				//ë§ë‹¿ì€ê³³ì´ ê°™ìœ¼ë©´ ê°™ì€ë°©í–¥ íšŒì „ì´ë¯€ë¡œ directionì€ ë°˜ëŒ€ê°€ ëœë‹¤.
+				cir(num+1,direction*-1);
 			}
 		}
 	}
