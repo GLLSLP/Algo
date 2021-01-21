@@ -1,10 +1,9 @@
 import java.util.Scanner;
 
-public class ¹éÁØ_14888_¿¬»êÀÚ³¢¿ö³Ö±â {
-	//static int min = Integer.MAX_VALUE;
-	//static int max = -Integer.MAX_VALUE;
-    static int max=-1000000000, min=1000000000;
-	static int N;//¼öÀÇ°³¼ö
+public class ë°±ì¤€_14888_ì—°ì‚°ìžë¼ì›Œë„£ê¸° {
+	static int min = Integer.MAX_VALUE;
+	static int max = -Integer.MAX_VALUE;
+	static int N;//ìˆ˜ì˜ê°œìˆ˜
 	static int []numbers;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -23,14 +22,14 @@ public class ¹éÁØ_14888_¿¬»êÀÚ³¢¿ö³Ö±â {
 	}
 	private static void combination(int numIndex, int total, int[] operator) {
 		// TODO Auto-generated method stub
-		if(numIndex==N) {//¼ö¸¦ ¸ðµÎ »ç¿ëÇßÀ¸¸é
+		if(numIndex==N) {//ìˆ˜ë¥¼ ëª¨ë‘ ì‚¬ìš©í–ˆìœ¼ë©´
 			max = max>total?max:total;
 			min = min<total?min:total;
 			return;
 		}
 		for (int i = 0; i < 4; i++) {
 			if(operator[i]!=0) {
-				//ÇöÀçÃÑ°ª, ¿¬»êÀÚÀÎµ¦½º, ´ÙÀ½¼ýÀÚ
+				//í˜„ìž¬ì´ê°’, ì—°ì‚°ìžì¸ë±ìŠ¤, ë‹¤ìŒìˆ«ìž
 				int nextTotal = cal(total, i, numbers[numIndex]);
 				operator[i]--;
 				combination(numIndex+1,nextTotal,operator);
@@ -41,16 +40,16 @@ public class ¹éÁØ_14888_¿¬»êÀÚ³¢¿ö³Ö±â {
 	private static int cal(int total, int opIndex, int nowNum) {
 		// TODO Auto-generated method stub
 		if(opIndex==0) {
-			//µ¡¼À
+			//ë§ì…ˆ
 			return total + nowNum;
 		}else if(opIndex==1) {
-			//–y¼À
+			//Â–yì…ˆ
 			return total - nowNum;
 		}else if(opIndex==2) {
-			//°ö¼À
+			//ê³±ì…ˆ
 			return total * nowNum;
 		}else {
-			//³ª´°¼À
+			//ë‚˜ëˆ—ì…ˆ
 			return total / nowNum;
 		}
 
