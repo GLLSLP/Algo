@@ -2,41 +2,41 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class ¹éÁØ_13335_Æ®·° {
+public class ë°±ì¤€_13335_íŠ¸ëŸ­ {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
 		Queue<Integer> queue = new LinkedList();
 
-		int N = sc.nextInt(); // Æ®·°ÀÇ °³¼ö
-		int W = sc.nextInt(); // ´Ù¸® ±æÀÌ
-		int L = sc.nextInt(); // ´Ù¸® ÃÖ´ë ÇÏÁß
+		int N = sc.nextInt();
+		int W = sc.nextInt();
+		int L = sc.nextInt(); 
 
-		int time = 0;//½Ã°£
-		int weight = 0;// ´Ù¸®¿¡ ÀÖ´Â Æ®·°ÀÇ ¹«°Ô
+		int time = 0;
+		int weight = 0;
 		int[] truck = new int[N]; 
 
 		for (int i = 0; i < N; i++) {
 			truck[i] = sc.nextInt();
-		} // end of input
+		} 
 
 		for (int i = 0; i < N; i++) { 
 			while (true) {
-				if (queue.isEmpty()) {// ´Ù¸®¿¡ ¾Æ¹«°Íµµ ¾øÀ¸¸é
+				if (queue.isEmpty()) {// ë‹¤ë¦¬ì— ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´
 					queue.offer(truck[i]);
 					time++; 
 					weight += truck[i]; 
 					break;
 
-				} else if (queue.size() == W) {// Å¥ÀÇ »çÀÌÁî°¡ ´Ù¸®ÀÇ ±æÀÌÀÌ¸é
+				} else if (queue.size() == W) {// íì˜ ì‚¬ì´ì¦ˆê°€ ë‹¤ë¦¬ì˜ ê¸¸ì´ì´ë©´
 					weight -= queue.remove();
 					
-				} else { //´Ù¸®¿¡ Æ®·°ÀÌ ÀÖÀ» ¶§
-					if (weight + truck[i]> L) { //ÇöÀç Æ®·°ÀÇ ¹«°Ô + ´Ù¸®¿¡ ÀÖ´Â Æ®·°ÀÇ ¹«°Ô°¡ ÃÖ´ë ÇÏÁßº¸´Ù Å©´Ù¸é
+				} else { //ë‹¤ë¦¬ì— íŠ¸ëŸ­ì´ ìˆì„ ë•Œ
+					if (weight + truck[i]> L) { //í˜„ì¬ íŠ¸ëŸ­ì˜ ë¬´ê²Œ + ë‹¤ë¦¬ì— ìˆëŠ” íŠ¸ëŸ­ì˜ ë¬´ê²Œê°€ ìµœëŒ€ í•˜ì¤‘ë³´ë‹¤ í¬ë‹¤ë©´
 						queue.offer(0);
 						time++;
 					
-					} else { //ÃÖ´ëÇÏÁßº¸´Ù ÀÛ´Ù¸é
+					} else { //ìµœëŒ€í•˜ì¤‘ë³´ë‹¤ ì‘ë‹¤ë©´
 						queue.offer(truck[i]);
 						time++;
 						weight += truck[i];
