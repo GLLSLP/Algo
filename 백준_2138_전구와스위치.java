@@ -2,60 +2,55 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class πÈ¡ÿ_2138_¿¸±∏øÕΩ∫¿ßƒ° {
-static int N;
-static int min;
-static char [][]before;
-static char []after;
+public class Î∞±Ï§Ä_2138_Ï†ÑÍµ¨ÏôÄÏä§ÏúÑÏπò {
+	static int N;
+	static int answer;
+	static char[][] before;
+	static char[] after;
+
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
-		//before¿ª µŒ∞°¡ˆ ∞ÊøÏ∑Œ ¿˙¿Â
+		// beforeÏùÑ ÎëêÍ∞ÄÏßÄ Í≤ΩÏö∞Î°ú Ï†ÄÏû•
 		before = new char[2][N];
-		after = new char[N];
 		String line = br.readLine();
 		before[0] = line.toCharArray();
 		before[1] = line.toCharArray();
-		//after ¿˙¿Â
+		// after Ï†ÄÏû•
 		line = br.readLine();
 		after = line.toCharArray();
-		min = Integer.MAX_VALUE;
-		//0π¯ Ω∫¿ßƒ° æ»¥©∏£∞Ì Ω√¿€
-		go(1,0,0);
-		//0π¯ Ω∫¿ßƒ° ¥©∏£∞Ì Ω√¿€
-		push(0,1);
-		go(1,1,1);
-		System.out.println(min==Integer.MAX_VALUE?-1:min);
-	}
-	private static void go(int index, int count, int type) {
-		// TODO Auto-generated method stub
-		if(index==N) {
-			//≥°±Ó¡ˆ ø‘¿∏∏È
-			if(before[type][index-1]==after[index-1]) {
-				min=min>count?count:min;
-				return;
-			}
-			if(before[type][index-1]!=after[index-1]) {
-				//∏∏æ‡ ∞∞¡ˆ æ ¿∏∏È
-				//πˆ∆∞ ¥©∏£∞Ì
-				push(index,type);
-				//¥Ÿ¿Ω ¿Œµ¶Ω∫∑Œ ¿Ãµø
-				go(index+1,count+1,type);
-			}else {
-				//∞∞¿∏∏È πˆ∆∞ æ»¥©∏£∞Ì ¥Ÿ¿Ω ¿Œµ¶Ω∫∑Œ ¿Ãµø
-				go(index+1,count,type);
-			}
-		}
-	}
-	private static void push(int index, int type) {
-		// TODO Auto-generated method stub
-		for (int i = index-1; i <= index+1; i++) {
-			if(i>=0&&i<N) {	//¿Œµ¶Ω∫∞° π¸¿ß æ»ø° ¿÷¿∏∏È
-				before[type][i]=before[type][i]=='1'?'0':'1';
-			}
-		}
+		answer = Integer.MAX_VALUE;
+		// 0Î≤à Ïä§ÏúÑÏπò ÏïàÎàÑÎ•¥Í≥† ÏãúÏûë
+		go(1, 0, 0);
+		// 0Î≤à Ïä§ÏúÑÏπò ÎàÑÎ•¥Í≥† ÏãúÏûë
+		push(0, 1);
+		go(1, 1, 1);
+		System.out.println(answer == Integer.MAX_VALUE ? -1 : answer);
 	}
 
+	private static void go(int index, int count, int type) {
+		if (index == N) {
+			// ÎÅùÍπåÏßÄ ÏôîÏúºÎ©¥
+			if (before[type][index - 1] == after[index - 1]) {
+				answer = answer > count ? count : answer;
+			}
+			return;
+		}
+		if (before[type][index - 1] != after[index - 1]) {
+			push(index, type);
+			go(index + 1, count + 1, type);
+		} else
+			go(index + 1, count, type);
+	}
+
+	private static void push(int index, int type) {
+		// TODO Auto-generated method stub
+		for (int i = index - 1; i <= index + 1; i++) {
+			if (i >= 0 && i < N) { // Ïù∏Îç±Ïä§Í∞Ä Î≤îÏúÑ ÏïàÏóê ÏûàÏúºÎ©¥
+				before[type][i] = before[type][i] == '1' ? '0' : '1';
+			}
+		}
+	}
 
 }
