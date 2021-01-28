@@ -14,7 +14,7 @@ public class Main {
 		N=sc.nextInt();
 		M=sc.nextInt();
 		map = new int[N][M];
-        visit = new boolean[N][M];
+        	visit = new boolean[N][M];
         
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
