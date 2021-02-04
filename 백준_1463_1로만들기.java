@@ -1,30 +1,23 @@
-package com.makeone;
-
 import java.util.Scanner;
 
-public class Main {
-
-	static int num;
-	static int count;
-	static int[] dp = new int[100000];
+public class 백준_1463_1로만들기 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		num = sc.nextInt();
-		System.out.println(cal(num));
-	}
-
-	public static int cal(int number) {
-		for (int i = 2; i <= number; i++) { // 최종 숫자는 n이기 때문에 n까지 반복연산
-			dp[i] = dp[i - 1] + 1;
-			if (i % 2 == 0)
-				dp[i] = Math.min(dp[i], dp[i / 2] + 1);
-			if (i % 3 == 0)
-				dp[i] = Math.min(dp[i], dp[i / 3] + 1);
+		int N=sc.nextInt();
+		int []count = new int[N+1];
+		count[1]=0;
+		for (int i = 2; i <= N; i++) {
+			count[i]=count[i-1]+1;
+			if(i%2==0) {
+				count[i]=Math.min(count[i/2]+1, count[i]);
+			}
+			if(i%3==0) {
+				count[i]=Math.min(count[i/3]+1, count[i]);
+			}
 		}
-		return dp[number];
-
+		System.out.println(count[N]);
 	}
 
 }
