@@ -1,23 +1,28 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
 
-public class 백준_2839_설탕배달 {
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int answer = 0;
-		while (true) {
-			if (N % 5 == 0) {
-				answer += N / 5;
-				break;
+public class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st = null;
+		int T = Integer.parseInt(br.readLine());
+		for (int tc = 0; tc < T; tc++) {
+			st = new StringTokenizer(br.readLine(), " ");
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int answer = 1;
+			for (int i = 1; i <= b; i++) {
+				answer *= (a % 10);
+				answer %= 10;
 			}
-			N -= 3;
-			answer++;
-			if (N < 0) {
-				answer = -1;
-				break;
-			}
+			if (answer == 0)
+				answer = 10;
+			bw.append(answer + "\n");
 		}
-		System.out.println(answer);
+		bw.flush();
 	}
 }
