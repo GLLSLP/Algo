@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class 백준_1016_제곱ㄴㄴ수 {
 	static long min, max;
+	static boolean[] check = new boolean[1000001];
 	public static void main(String[] arg) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
@@ -13,7 +14,6 @@ public class 백준_1016_제곱ㄴㄴ수 {
 	private static void isAbsNoNo() {
 		// TODO Auto-generated method stub
 		int end = (int) Math.sqrt(max);
-		boolean[] check = new boolean[1000001];
 		for (long i = 2; i <= end; i++) {
 			long start = ((min - 1) / (i * i) + 1) * (i * i);
 			for (long a = start; a <= max; a += (i * i)) {
