@@ -19,37 +19,39 @@ public class 백준_2805_나무자르기 {
 		for (int n = 0; n < N; n++) {
 			tree[n] = Integer.parseInt(st.nextToken());
 		}
-		Arrays.sort(tree);
-		find();
+		Arrays.sort(tree); //작->큰으로 정렬
+
+		System.out.println(find());
 
 	}
 
-	private static void find() {
+	private static int find() {
 		// TODO Auto-generated method stub
 		int start = 0;
 		int end = tree[N - 1];// ***제일 끝 높이
+		int middle = 0;
 
 		while (start <= end) {
-			int middle = (start + end) / 2; // 중간 높이
-			int temp = 0;// 잘리는 나무 임시로 수집
+			middle = (start + end) / 2; // 중간 높이
+			long temp = 0;// 잘리는 나무 임시로 수집... ****long 필수!!!!****
 
-			for (int i = 0; i < N; i++) {
-				if (tree[i] - middle > 0) {
+			for (int i = 0; i < tree.length; i++) {
+				if (tree[i] > middle) {
 					temp += tree[i] - middle;
 				}
 			}
 
 			if (temp >= M) {// 충분히 잘랐을 경우
-				if (middle > answer) {// 중간높이가 정답보다 클때
-					answer = middle + 1;
+				if (middle > answer) {//과다
+					answer = middle;//과다중에 가장 높은 톱질높이를 저장
 				}
-				start = middle + 1;
-			} else {// 자르지 못했을 경우
-				end = middle + 1; // **
+				start = middle + 1; //시작점을 올림 = middle(톱질높이) 높아지게함 = 적게잘림
+			} else {//부족
+				end = middle - 1; // 끝점을 줄임 = middle(톱질높이) 낮아짐 = 많이잘림
 			}
-
-			System.out.println(answer);
 		}
+
+		return answer;
 	}
 
 }
