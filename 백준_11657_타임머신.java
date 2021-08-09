@@ -1,71 +1,80 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class 백준_11657_타임머신 {
-	static int N,K,start,end,time;
-	static int max = Integer.MAX_VALUE;
+public class Main {
+	static int N, M;
+	static long maxValue = Long.MAX_VALUE;
+	static ArrayList<Dot>[] list;
 	static long[] distance;
-	static ArrayList<Node>[] list;
+
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st =new StringTokenizer(br.readLine());
-		N=Integer.parseInt(st.nextToken());//도시개수
-		K=Integer.parseInt(st.nextToken());//버스개수
-		distance = new long[N+1];
-		list = new ArrayList[N+1];
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken()); // 도시개수
+		M = Integer.parseInt(st.nextToken()); // 버스개수
+		distance = new long[N + 1];
+		list = new ArrayList[N + 1];
 		for (int i = 1; i <= N; i++) {
-			distance[i]=max;
+			distance[i] = maxValue;
 			list[i] = new ArrayList<>();
 		}
-		for (int k = 0; k < K; k++) {
-			st =new StringTokenizer(br.readLine());
-			start = Integer.parseInt(st.nextToken());
-			end = Integer.parseInt(st.nextToken());
-			time = Integer.parseInt(st.nextToken());
-			list[start].add(new Node(end,time));
+		for (int m = 0; m < M; m++) {
+			st = new StringTokenizer(br.readLine());
+			int A = Integer.parseInt(st.nextToken()); // 시작
+			int B = Integer.parseInt(st.nextToken()); // 도착
+			int C = Integer.parseInt(st.nextToken()); // 시간
+			list[A].add(new Dot(B, C));
 		}
-		if(bellmanFord()) {
+
+		if (Bell()) {
 			for (int i = 2; i <= N; i++) {
-				System.out.println(distance[i]==max?"-1":distance[i]);
+				if (distance[i] == maxValue) {
+					bw.write("-1\n");
+				} else {
+					bw.write(Long.toString(distance[i]) + "\n");
+				}
 			}
-		}else {
-			System.out.println(-1);
+		} else {
+			bw.write("-1");
 		}
+
+		bw.flush();
+		bw.close();
 	}
-	
-	private static boolean bellmanFord() {
-		// TODO Auto-generated method stub
-		distance[1]=0;
-		boolean check = false;
+
+	private static boolean Bell() {
+		distance[1] = 0;
+		boolean check = false; // 값 변화 있었는지
 		for (int n = 1; n <= N; n++) {
 			check = false;
 			for (int m = 1; m <= N; m++) {
-				for (Node node : list[m]) {
-					if(distance[m] != max && distance[m]+node.t < distance[node.index]) {
-						distance[node.index] = distance[m]+node.t;
+				for (Dot temp : list[m]) {
+					if (distance[m] != maxValue && distance[m] + temp.time < distance[temp.node]) {
+						distance[temp.node] = distance[m] + temp.time;
 						check = true;
 					}
 				}
 			}
+			//
 			if(!check) {
 				break;
 			}
 		}
-		if(check)//순환중일경우
+		if (check) {
 			return false;
-		return true;
-	}
-
-	static class Node {
-		int index;
-		int t;
-		Node(int index, int t){
-			this.index = index;
-			this.t = t;
+		} else {
+			return true;
 		}
+	}
+}
+
+class Dot {
+	int node;
+	int time;
+
+	public Dot(int node, int time) {
+		this.node = node;
+		this.time = time;
 	}
 }
