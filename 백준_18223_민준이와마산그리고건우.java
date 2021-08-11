@@ -2,54 +2,84 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int N, M;
-	static int[][] dis;
-	static int max = 100001;
+	static int V, E, P;
+	static boolean save;
+	static int[] dis;
+	static ArrayList<Dot>[] list;
+	static PriorityQueue<Dot> pq;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st;
-		N = Integer.parseInt(br.readLine()); // 도시개수
-		M = Integer.parseInt(br.readLine()); // 버스개수
-		dis = new int[N + 1][N + 1];
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= N; j++) {
-				if (i != j)
-					dis[i][j] = max;
-			}
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		V = Integer.parseInt(st.nextToken());
+		E = Integer.parseInt(st.nextToken());
+		P = Integer.parseInt(st.nextToken());
+		dis = new int[V + 1];
+		list = new ArrayList[V + 1];
+		for (int i = 1; i <= V; i++) {
+			list[i] = new ArrayList<>();
 		}
-		for (int m = 0; m < M; m++) {
+
+		for (int e = 0; e < E; e++) {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
 			int c = Integer.parseInt(st.nextToken());
-			dis[a][b] = Math.min(dis[a][b], c);
+			list[a].add(new Dot(b, c));
+			list[b].add(new Dot(a, c));
 		}
 
-		floyd();
+		if (P == 1) {
+			bw.write("SAVE HIM");
+		} else {
+			int all = Dijkstra(1, V);
+			int oneToP = Dijkstra(1, P);
+			int PToV = Dijkstra(P, V);
 
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= N; j++) {
-				if (dis[i][j] == 100001)
-					bw.write("0 ");
-				else
-					bw.write(Integer.toString(dis[i][j]) + " ");
+			if (all >= oneToP + PToV) {
+				bw.write("SAVE HIM");
+			} else {
+				bw.write("GOOD BYE");
 			}
-			bw.write("\n");
 		}
+
 		bw.flush();
 		bw.close();
 	}
 
-	private static void floyd() {
-		for (int mid = 1; mid <= N; mid++) {
-			for (int i = 1; i <= N; i++) {
-				for (int j = 1; j <= N; j++) {
-					dis[i][j] = Math.min(dis[i][j], dis[i][mid] + dis[mid][j]);
+	private static int Dijkstra(int start, int end) {
+
+		pq = new PriorityQueue<>();
+		Arrays.fill(dis, Integer.MAX_VALUE);
+		dis[start] = 0;
+
+		pq.offer(new Dot(start, 0));
+		while (!pq.isEmpty()) {
+			Dot now = pq.poll();
+			for (Dot next : list[now.node]) {
+				if (dis[next.node] >= dis[now.node] + next.w) {
+					dis[next.node] = dis[now.node] + next.w;
+					pq.offer(new Dot(next.node, dis[next.node]));
 				}
 			}
 		}
+		return dis[end];
 	}
 
+}
+
+class Dot implements Comparable<Dot> {
+	int node;
+	int w;
+
+	public Dot(int node, int w) {
+		this.node = node;
+		this.w = w;
+	}
+
+	@Override
+	public int compareTo(Dot o) {
+		return this.w - o.w;
+	}
 }
